@@ -39,15 +39,7 @@ ondescribe = async function ({ configuration }): Promise<void> {
           },
           getItems: {
             displayName: "Get TODOs",
-            type: "read",
-            // parameters: {
-            //   pid: {
-            //     displayName: "param1",
-            //     description: "Description Of Param 1",
-            //     type: "number",
-            //   },
-            // },
-            // requiredParameters: ["pid"],
+            type: "list",
             outputs: ["id", "userId", "title", "completed"],
           },
         },
