@@ -37,7 +37,7 @@ ondescribe = async function ({ configuration }): Promise<void> {
             inputs: ["id"],
             outputs: ["id", "userId", "title", "completed"],
           },
-          getParams: {
+          getItems: {
             displayName: "Get TODO",
             type: "read",
             parameters: {
@@ -82,8 +82,8 @@ async function onexecuteTodo(
     case "get":
       await onexecuteTodoGet(properties);
       break;
-    case "getParams":
-      await onexecuteTodoGetWithParams(parameters);
+    case "getItems":
+      await onexecuteTodoGetAll(parameters);
       break;
     default:
       throw new Error("The method " + methodName + " is not supported.");
@@ -124,7 +124,7 @@ function onexecuteTodoGet(properties: SingleRecord): Promise<void> {
   });
 }
 
-function onexecuteTodoGetWithParams(parameters: SingleRecord): Promise<void> {
+function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     try {
       postResult({
