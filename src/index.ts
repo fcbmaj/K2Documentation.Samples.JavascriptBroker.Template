@@ -126,12 +126,14 @@ function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
           throw new Error("Failed with status " + xhr.status);
 
         var obj = JSON.parse(xhr.responseText);
-        postResult({
-          id: obj.id,
-          userId: obj.userId,
-          title: obj.title,
-          completed: obj.completed,
-        });
+        postResult(obj.map(x => {
+          return {
+          "id": obj.id,
+          "userId": obj.userId,
+          "title": obj.title,
+          "completed": obj.completed
+          }
+        }));
         resolve();
       } catch (e) {
         reject(e);
@@ -142,7 +144,7 @@ function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
       "GET",
       "https://jsonplaceholder.typicode.com/todos/"
     );
-    xhr.setRequestHeader("test", "test value");
+
     xhr.send();
   });
 }
