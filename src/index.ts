@@ -38,17 +38,17 @@ ondescribe = async function ({ configuration }): Promise<void> {
             outputs: ["id", "userId", "title", "completed"],
           },
           getItems: {
-            displayName: "Get TODO",
+            displayName: "Get TODOs",
             type: "read",
-            parameters: {
-              pid: {
-                displayName: "param1",
-                description: "Description Of Param 1",
-                type: "number",
-              },
-            },
-            requiredParameters: ["pid"],
-            outputs: ["id"],
+            // parameters: {
+            //   pid: {
+            //     displayName: "param1",
+            //     description: "Description Of Param 1",
+            //     type: "number",
+            //   },
+            // },
+            // requiredParameters: ["pid"],
+            outputs: ["id", "userId", "title", "completed"],
           },
         },
       },
@@ -126,13 +126,31 @@ function onexecuteTodoGet(properties: SingleRecord): Promise<void> {
 
 function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    try {
-      postResult({
-        id: parameters["pid"],
-      });
-      resolve();
-    } catch (e) {
-      reject(e);
-    }
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      try {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200)
+          throw new Error("Failed with status " + xhr.status);
+
+        var obj = JSON.parse(xhr.responseText);
+        postResult({
+          id: obj.id,
+          userId: obj.userId,
+          title: obj.title,
+          completed: obj.completed,
+        });
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    };
+
+    xhr.open(
+      "GET",
+      "https://jsonplaceholder.typicode.com/todos/"
+    );
+    xhr.setRequestHeader("test", "test value");
+    xhr.send();
   });
 }
