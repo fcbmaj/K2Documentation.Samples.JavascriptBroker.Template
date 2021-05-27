@@ -12,7 +12,7 @@ function getOutputFile(inputFile) {
   const inputFileIndex = inputFile.lastIndexOf(".");
   const outputFile =
     (inputFileIndex >= 0 ? inputFile.substr(0, inputFileIndex) : inputFile) +
-    ".js";
+    ".jssp";
   return outputFile.startsWith("src/") ? outputFile.substr(4) : outputFile;
 }
 
