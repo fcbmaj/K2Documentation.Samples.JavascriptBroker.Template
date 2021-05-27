@@ -31,13 +31,13 @@ ondescribe = async function ({ configuration }): Promise<void> {
           },
         },
         methods: {
-          get: {
+          "get": {
             displayName: "Get TODO",
             type: "read",
             inputs: ["id"],
             outputs: ["id", "userId", "title", "completed"],
           },
-          getItems: {
+          "getItems": {
             displayName: "Get TODOs",
             type: "list",
             outputs: ["id", "userId", "title", "completed"],
@@ -128,10 +128,10 @@ function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
         var obj = JSON.parse(xhr.responseText);
         postResult(obj.map(x => {
           return {
-          "id": obj.id,
-          "userId": obj.userId,
-          "title": obj.title,
-          "completed": obj.completed
+          "id": x.id,
+          "userId": x.userId,
+          "title": x.title,
+          "completed": x.completed
           }
         }));
         resolve();
