@@ -123,7 +123,7 @@ function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord)
 
     if (typeof properties["id"] !== "number")
       throw new Error('properties["id"] is not of type number');
-    xhr.open("GET",urlValue + encodeURIComponent(properties["id"]));
+    xhr.open("GET",urlValue + "/todos/" + encodeURIComponent(properties["id"]));
     xhr.setRequestHeader("test", "test value");
     xhr.send();
   });
@@ -156,7 +156,7 @@ function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleReco
       }
     };
 
-    xhr.open("GET", urlValue.toString());
+    xhr.open("GET", urlValue + "/todos/");
     xhr.send();
   });
 }
