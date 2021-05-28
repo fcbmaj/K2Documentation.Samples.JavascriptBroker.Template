@@ -121,6 +121,9 @@ function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord)
       }
     };
 
+    console.log("baz todo log");
+    console.log(urlValue + "/todos" + encodeURIComponent(properties["id"].toString()));
+
     if (typeof properties["id"] !== "number")
       throw new Error('properties["id"] is not of type number');
     xhr.open("GET",urlValue + "/todos" + encodeURIComponent(properties["id"]));
@@ -155,6 +158,9 @@ function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleReco
         reject(e);
       }
     };
+
+    console.log("baz todos log");
+    console.log(urlValue + "/todos");
 
     xhr.open("GET", urlValue + "/todos");
     xhr.send();
