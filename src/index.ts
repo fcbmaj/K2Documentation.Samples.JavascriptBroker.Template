@@ -4,6 +4,13 @@ metadata = {
   systemName: "com.k2.example",
   displayName: "Example Broker",
   description: "An example broker that accesses JSONPlaceholder.",
+  "configuration": {
+      "ServiceURL": {
+          displayName: "JSONPlaceholder Service URL",
+          type: "string",
+          value: "https://jsonplaceholder.typicode.com/"
+      }
+  }
 };
 
 ondescribe = async function ({ configuration }): Promise<void> {
@@ -58,7 +65,7 @@ onexecute = async function ({
 }): Promise<void> {
   switch (objectName) {
     case "todo":
-      await onexecuteTodo(methodName, properties, parameters);
+      await onexecuteTodo(methodName, properties, parameters, configuration);
       break;
     default:
       throw new Error("The object " + objectName + " is not supported.");
@@ -68,23 +75,28 @@ onexecute = async function ({
 async function onexecuteTodo(
   methodName: string,
   properties: SingleRecord,
-  parameters: SingleRecord
+  parameters: SingleRecord,
+  configuration: SingleRecord
+
 ): Promise<void> {
   switch (methodName) {
     case "get":
-      await onexecuteTodoGet(properties);
+      await onexecuteTodoGet(properties, configuration);
       break;
     case "getItems":
-      await onexecuteTodoGetAll(parameters);
+      await onexecuteTodoGetAll(parameters, configuration);
       break;
     default:
       throw new Error("The method " + methodName + " is not supported.");
   }
 }
 
-function onexecuteTodoGet(properties: SingleRecord): Promise<void> {
+function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
+    
     var xhr = new XMLHttpRequest();
+    var urlValue = configuration["ServiceURL"];
+    
     xhr.onreadystatechange = function () {
       try {
         if (xhr.readyState !== 4) return;
@@ -106,19 +118,18 @@ function onexecuteTodoGet(properties: SingleRecord): Promise<void> {
 
     if (typeof properties["id"] !== "number")
       throw new Error('properties["id"] is not of type number');
-    xhr.open(
-      "GET",
-      "https://jsonplaceholder.typicode.com/todos/" +
-        encodeURIComponent(properties["id"])
-    );
+    xhr.open("GET",urlValue + encodeURIComponent(properties["id"]));
     xhr.setRequestHeader("test", "test value");
     xhr.send();
   });
 }
 
-function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
+function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
+
     var xhr = new XMLHttpRequest();
+    var urlValue = configuration["ServiceURL"];
+ 
     xhr.onreadystatechange = function () {
       try {
         if (xhr.readyState !== 4) return;
@@ -140,11 +151,7 @@ function onexecuteTodoGetAll(parameters: SingleRecord): Promise<void> {
       }
     };
 
-    xhr.open(
-      "GET",
-      "https://jsonplaceholder.typicode.com/todos/"
-    );
-
+    xhr.open("GET", urlValue.toString());
     xhr.send();
   });
 }
