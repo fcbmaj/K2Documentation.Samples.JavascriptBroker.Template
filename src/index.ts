@@ -9,6 +9,11 @@ metadata = {
           displayName: "JSONPlaceholder Service URL",
           type: "string",
           value: "https://jsonplaceholder.typicode.com/"
+      },
+      "mySpecialSetting":{
+        displayName: "normal news",
+        type: "string",
+        value: "https://bbc.co.uk/"
       }
   }
 };
