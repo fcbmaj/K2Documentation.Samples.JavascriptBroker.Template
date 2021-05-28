@@ -1,11 +1,11 @@
 import "@k2oss/k2-broker-core";
 
 metadata = {
-  systemName: "com.k2.example",
+  systemName: "bazTestBroker",
   displayName: "Example Broker",
   description: "An example broker that accesses JSONPlaceholder.",
-  "configuration": {
-      "ServiceURL": {
+  configuration: {
+      ServiceURL: {
           displayName: "JSONPlaceholder Service URL",
           type: "string",
           value: "https://jsonplaceholder.typicode.com/"
