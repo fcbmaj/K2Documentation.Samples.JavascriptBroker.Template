@@ -121,12 +121,12 @@ function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord)
       }
     };
 
-    console.log("baz todo log");
-    console.log(urlValue + "/todos" + encodeURIComponent(properties["id"].toString()));
+    // console.log("baz todo log");
+    // console.log(urlValue + "/todos/" + encodeURIComponent(properties["id"].toString()));
 
     if (typeof properties["id"] !== "number")
       throw new Error('properties["id"] is not of type number');
-    xhr.open("GET",urlValue + "/todos" + encodeURIComponent(properties["id"]));
+    xhr.open("GET",urlValue + "/todos/" + encodeURIComponent(properties["id"]));
     xhr.setRequestHeader("test", "test value");
     xhr.send();
   });
@@ -159,8 +159,8 @@ function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleReco
       }
     };
 
-    console.log("baz todos log");
-    console.log(urlValue + "/todos");
+    // console.log("baz todos log");
+    // console.log(urlValue + "/todos");
 
     xhr.open("GET", urlValue + "/todos");
     xhr.send();
