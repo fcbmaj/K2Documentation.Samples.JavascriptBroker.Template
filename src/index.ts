@@ -183,10 +183,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         var obj = JSON.parse(xhr.responseText);
         postResult(obj.map(x => {
           return {
-          "id": x.id,
-          "userId": x.userId,
-          "title": x.title,
-          "completed": x.completed
+          "transientDocumentId": x.id
           }
         }));
         resolve();
