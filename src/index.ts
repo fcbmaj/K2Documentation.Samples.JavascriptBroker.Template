@@ -6,14 +6,14 @@ metadata = {
   "description": "An example broker that accesses JSONPlaceholder.",
   "configuration": {
       "ServiceURL": {
-          displayName: "JSONPlaceholder Service URL",
-          type: "string",
-          value: "https://jsonplaceholder.typicode.com"
+          "displayName" : "Adobesign URL",
+          "type" : "string",
+          "value" : "https://api.na2.adobesign.com/api/rest/v6"
       },
-      "mySpecialSetting":{
-        displayName: "normal news",
-        type: "string",
-        value: "https://bbc.co.uk"
+      "AccessToken":{
+        "displayName" : "Access Token",
+        "type": "string",
+        "value" : "3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL"
       }
   }
 };
@@ -54,6 +54,11 @@ ondescribe = async function ({ configuration }): Promise<void> {
             type: "list",
             outputs: ["id", "userId", "title", "completed"],
           },
+          "getDocs": {
+            displayName: "Get Docs",
+            type: "list",
+            outputs: ["id", "userId", "title", "completed"],
+          },
         },
       },
     },
@@ -91,6 +96,9 @@ async function onexecuteTodo(
     case "getItems":
       await onexecuteTodoGetAll(parameters, configuration);
       break;
+    case "getDocs":
+      await onexecuteTransientDocGet(parameters, configuration);
+      break;
     default:
       throw new Error("The method " + methodName + " is not supported.");
   }
@@ -120,9 +128,6 @@ function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord)
         reject(e);
       }
     };
-
-    // console.log("baz todo log");
-    // console.log(urlValue + "/todos/" + encodeURIComponent(properties["id"].toString()));
 
     if (typeof properties["id"] !== "number")
       throw new Error('properties["id"] is not of type number');
@@ -158,11 +163,41 @@ function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleReco
         reject(e);
       }
     };
-
-    // console.log("baz todos log");
-    // console.log(urlValue + "/todos");
-
     xhr.open("GET", urlValue + "/todos");
     xhr.send();
   });
 }
+
+function onexecuteTransientDocGet(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+
+    var xhr = new XMLHttpRequest();
+    var urlValue = configuration["ServiceURL"];
+ 
+    xhr.onreadystatechange = function () {
+      try {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200)
+          throw new Error("Failed with status " + xhr.status);
+
+        var obj = JSON.parse(xhr.responseText);
+        postResult(obj.map(x => {
+          return {
+          "id": x.id,
+          "userId": x.userId,
+          "title": x.title,
+          "completed": x.completed
+          }
+        }));
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    };
+
+    xhr.open("GET", urlValue + "/transientDocuments");
+    xhr.send();
+  });
+}
+
+
