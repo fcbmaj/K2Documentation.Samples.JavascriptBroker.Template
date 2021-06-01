@@ -173,6 +173,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     var xhr = new XMLHttpRequest();
     var urlValue = configuration["ServiceURL"];
+    var urlToken = configuration["AccessToken"];
  
     xhr.onreadystatechange = function () {
       try {
@@ -193,6 +194,9 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     };
 
     xhr.open("GET", urlValue + "/transientDocuments");
+    xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
     xhr.send();
   });
 }
