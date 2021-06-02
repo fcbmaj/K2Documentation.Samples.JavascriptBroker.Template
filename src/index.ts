@@ -2,8 +2,8 @@ import "@k2oss/k2-broker-core";
 
 metadata = {
   "systemName": "bazTestBroker",
-  "displayName": "Example Broker",
-  "description": "An example broker that accesses JSONPlaceholder.",
+  "displayName": "Adobesign Broker",
+  "description": "Adobesign broker that accesses JSONPlaceholder.",
   "configuration": {
       "ServiceURL": {
           "displayName" : "Adobesign URL",
@@ -22,7 +22,7 @@ ondescribe = async function ({ configuration }): Promise<void> {
   postSchema({
     objects: {
       todo: {
-        displayName: "TODO",
+        displayName: "TO DO",
         description: "Manages a TODO list",
         properties: {
           id: {
@@ -44,13 +44,13 @@ ondescribe = async function ({ configuration }): Promise<void> {
         },
         methods: {
           "get": {
-            displayName: "Get TODO",
+            displayName: "Get TO DO",
             type: "read",
             inputs: ["id"],
             outputs: ["id", "userId", "title", "completed"],
           },
           "getItems": {
-            displayName: "Get TODOs",
+            displayName: "Get TO DOs",
             type: "list",
             outputs: ["id", "userId", "title", "completed"],
           },
@@ -175,6 +175,8 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
  
+    var form = new FormData();
+
     xhr.onreadystatechange = function () {
       try {
         if (xhr.readyState !== 4) return;
@@ -192,12 +194,12 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         reject(e);
       }
     };
-
-    xhr.open("GET", urlValue + "/transientDocuments");
+    
+    xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-    xhr.send();
+    xhr.send(form);
   });
 }
 
