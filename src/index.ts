@@ -192,6 +192,8 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         reject(e);
       }
     };
+
+    // test with nintex
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
