@@ -184,11 +184,9 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
           throw new Error("Failed with status " + xhr.status);
 
         var obj = JSON.parse(xhr.responseText);
-        postResult(obj.map(x => {
-          return {
-          "transientDocumentId": x.id
-          }
-        }));
+        postResult({
+          transientDocumentId: obj.id,
+        });
         resolve();
       } catch (e) {
         reject(e);
@@ -199,6 +197,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
+    xhr.setRequestHeader("File", "C:\\Users\\majevadb\\OneDrive - FC USA Inc\\Documents\\Test Documents\\Adobe Sign\\TestTwo.docx")
     xhr.send(form);
   });
 }
