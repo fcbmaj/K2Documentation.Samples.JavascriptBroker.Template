@@ -22,8 +22,8 @@ ondescribe = async function ({ configuration }): Promise<void> {
   postSchema({
     objects: {
       todo: {
-        displayName: "TO DO",
-        description: "Manages a TODO list",
+        displayName: "Get ID",
+        description: "Get Transaction ID",
         properties: {
           id: {
             displayName: "ID",
@@ -43,17 +43,17 @@ ondescribe = async function ({ configuration }): Promise<void> {
           },
         },
         methods: {
-          "get": {
-            displayName: "Get TO DO",
-            type: "read",
-            inputs: ["id"],
-            outputs: ["id", "userId", "title", "completed"],
-          },
-          "getItems": {
-            displayName: "Get TO DOs",
-            type: "list",
-            outputs: ["id", "userId", "title", "completed"],
-          },
+          // "get": {
+          //   displayName: "Get TO DO",
+          //   type: "read",
+          //   inputs: ["id"],
+          //   outputs: ["id", "userId", "title", "completed"],
+          // },
+          // "getItems": {
+          //   displayName: "Get TO DOs",
+          //   type: "list",
+          //   outputs: ["id", "userId", "title", "completed"],
+          // },
           "getDocs": {
             displayName: "Get Docs",
             type: "list",
@@ -104,69 +104,69 @@ async function onexecuteTodo(
   }
 }
 
-function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+// function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord): Promise<void> {
+//   return new Promise<void>((resolve, reject) => {
     
-    var xhr = new XMLHttpRequest();
-    var urlValue = configuration["ServiceURL"];
+//     var xhr = new XMLHttpRequest();
+//     var urlValue = configuration["ServiceURL"];
     
-    xhr.onreadystatechange = function () {
-      try {
-        if (xhr.readyState !== 4) return;
-        if (xhr.status !== 200)
-          throw new Error("Failed with status " + xhr.status);
+//     xhr.onreadystatechange = function () {
+//       try {
+//         if (xhr.readyState !== 4) return;
+//         if (xhr.status !== 200)
+//           throw new Error("Failed with status " + xhr.status);
 
-        var obj = JSON.parse(xhr.responseText);
-        postResult({
-          id: obj.id,
-          userId: obj.userId,
-          title: obj.title,
-          completed: obj.completed,
-        });
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    };
+//         var obj = JSON.parse(xhr.responseText);
+//         postResult({
+//           id: obj.id,
+//           userId: obj.userId,
+//           title: obj.title,
+//           completed: obj.completed,
+//         });
+//         resolve();
+//       } catch (e) {
+//         reject(e);
+//       }
+//     };
 
-    if (typeof properties["id"] !== "number")
-      throw new Error('properties["id"] is not of type number');
-    xhr.open("GET",urlValue + "/todos/" + encodeURIComponent(properties["id"]));
-    xhr.setRequestHeader("test", "test value");
-    xhr.send();
-  });
-}
+//     if (typeof properties["id"] !== "number")
+//       throw new Error('properties["id"] is not of type number');
+//     xhr.open("GET",urlValue + "/todos/" + encodeURIComponent(properties["id"]));
+//     xhr.setRequestHeader("test", "test value");
+//     xhr.send();
+//   });
+// }
 
-function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+// function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
+//   return new Promise<void>((resolve, reject) => {
 
-    var xhr = new XMLHttpRequest();
-    var urlValue = configuration["ServiceURL"];
+//     var xhr = new XMLHttpRequest();
+//     var urlValue = configuration["ServiceURL"];
  
-    xhr.onreadystatechange = function () {
-      try {
-        if (xhr.readyState !== 4) return;
-        if (xhr.status !== 200)
-          throw new Error("Failed with status " + xhr.status);
+//     xhr.onreadystatechange = function () {
+//       try {
+//         if (xhr.readyState !== 4) return;
+//         if (xhr.status !== 200)
+//           throw new Error("Failed with status " + xhr.status);
 
-        var obj = JSON.parse(xhr.responseText);
-        postResult(obj.map(x => {
-          return {
-          "id": x.id,
-          "userId": x.userId,
-          "title": x.title,
-          "completed": x.completed
-          }
-        }));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    };
-    xhr.open("GET", urlValue + "/todos");
-    xhr.send();
-  });
-}
+//         var obj = JSON.parse(xhr.responseText);
+//         postResult(obj.map(x => {
+//           return {
+//           "id": x.id,
+//           "userId": x.userId,
+//           "title": x.title,
+//           "completed": x.completed
+//           }
+//         }));
+//         resolve();
+//       } catch (e) {
+//         reject(e);
+//       }
+//     };
+//     xhr.open("GET", urlValue + "/todos");
+//     xhr.send();
+//   });
+// }
 
 function onexecuteTransientDocGet(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
@@ -185,7 +185,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
         var obj = JSON.parse(xhr.responseText);
         postResult({
-          transientDocumentId: obj.id,
+          transientDocumentId: obj.id, 
         });
         resolve();
       } catch (e) {
