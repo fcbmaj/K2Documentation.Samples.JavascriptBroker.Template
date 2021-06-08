@@ -183,8 +183,8 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     //---
 
     var form = new FormData();
-    form.append('attributes', JSON.stringify({"name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
-    form.append('file', "from service broker - sign this doc");
+    form.append('attributes', JSON.stringify({"File-Name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
+    form.append('File', "from service broker - sign this doc");
 
     xhr.onreadystatechange = function () {
       try {
