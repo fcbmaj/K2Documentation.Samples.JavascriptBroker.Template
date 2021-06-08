@@ -177,17 +177,20 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     console.log("1")
  
+    //---
+    // form.append("file", "from service broker - sign this doc");
+    // form.append("name", "TestTwo.docx");
+    //---
+
     var form = new FormData();
-    //---
-    form.append("file", "from service broker - sign this doc");
-    form.append("name", "TestTwo.docx");
-    //---
+    form.append('attributes', JSON.stringify({"name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
+    form.append('file', "from service broker - sign this doc");
 
     xhr.onreadystatechange = function () {
       try {
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200)
-          throw new Error("Failed with status " + xhr.status);
+          throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
 
         var obj = JSON.parse(xhr.responseText);
         postResult({
@@ -205,7 +208,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-    xhr.setRequestHeader("Content-Type", "application/form-data");
+    // xhr.setRequestHeader("Content-Type", "application/form-data");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
     ///----------------
 
