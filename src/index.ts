@@ -179,8 +179,8 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
  
     var form = new FormData();
     //---
-    form.append("File", "from service broker - sign this doc");
-    form.append("File-Name", "TestTwo.docx");
+    form.append("file", "from service broker - sign this doc");
+    form.append("name", "TestTwo.docx");
     //---
 
     xhr.onreadystatechange = function () {
