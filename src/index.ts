@@ -174,8 +174,14 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var xhr = new XMLHttpRequest();
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
+
+    console.log("1")
  
     var form = new FormData();
+    //---
+    form.append("File", "from service broker - sign this doc");
+    form.append("File-Name", "TestTwo.docx");
+    //---
 
     xhr.onreadystatechange = function () {
       try {
@@ -193,14 +199,19 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
       }
     };
 
+
+    console.log("2")
     // test with nintex
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-Type", "application/form-data");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-    xhr.setRequestHeader("File", "C:\\Users\\majevadb\\OneDrive - FC USA Inc\\Documents\\Test Documents\\Adobe Sign\\TestTwo.docx")
+    ///----------------
+
+    ///----------------
     xhr.send(form);
+    console.log("3")
   });
 }
 
