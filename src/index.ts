@@ -74,7 +74,6 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     data.append("File-Name", "please_sign.docx");
 
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
 
     xhr.onreadystatechange = function () {
       try {
