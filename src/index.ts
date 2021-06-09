@@ -71,42 +71,12 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlToken = configuration["AccessToken"];
 
     /*
-    console.log("Token and URL good");
- 
     var form = new FormData();
  
     // form.append("File-Name", "testTwo.docx"); //IMPORTANT
     // form.append("File", "from service broker - sign this doc");
     form.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
     form.append('file', "from service broker - sign this doc");
-
-    xhr.onreadystatechange = function () {
-      try {
-        if (xhr.readyState !== 4) return;
-        if (xhr.status !== 200)
-          throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
-
-        var obj = JSON.parse(xhr.responseText);
-        postResult({
-          transientDocumentId: obj.id, 
-        });
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    };
-
-
-    console.log(urlValue + "/transientDocuments");
-    // test with nintex
-    
-    xhr.open("POST", urlValue + "/transientDocuments");
-    xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-
-    xhr.send(form);
-    console.log(JSON.stringify(form));
     */
 
     var data = new FormData();
@@ -118,13 +88,15 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     xhr.onreadystatechange = function () {
       try {
-        console.log('ready state', xhr.readyState);
+        console.log('ready state ' + xhr.readyState);
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200)
           throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
 
+        console.log('done')
+
         var obj = JSON.parse(xhr.responseText);
-        console.log('response text', xhr.responseText)
+        console.log('response text' + xhr.responseText)
         postResult({
           transientDocumentId: obj.id, 
         });
@@ -133,12 +105,30 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         reject(e);
       }
     };
-    console.log(xhr.responseText)
 
-    xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
+    // xhr.onreadystatechange = function () {
+    //   try {
+    //     console.log('ready state', xhr.readyState);
+    //     if (xhr.readyState !== 4) return;
+    //     if (xhr.status !== 200)
+    //       throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
+
+    //     var obj = JSON.parse(xhr.responseText);
+    //     console.log('response text', xhr.responseText)
+    //     postResult({
+    //       transientDocumentId: obj.id, 
+    //     });
+    //     resolve();
+    //   } catch (e) {
+    //     reject(e);
+    //   }
+    // };
+    // console.log(xhr.responseText)
+
+    xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-    xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
+    xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
 
     xhr.send(data);
     console.log(JSON.stringify(data));
