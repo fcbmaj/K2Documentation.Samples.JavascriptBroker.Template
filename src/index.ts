@@ -21,32 +21,20 @@ metadata = {
 ondescribe = async function ({ configuration }): Promise<void> {
   postSchema({
     objects: {
-      todo: {
+      getid: {
         displayName: "Get ID",
         description: "Get Transaction ID",
         properties: {
-          id: {
-            displayName: "ID",
-            type: "number",
-          },
-          userId: {
-            displayName: "User ID",
-            type: "number",
-          },
-          title: {
-            displayName: "Title",
+          transientDocumentId: {
+            displayName: "transient Document Id",
             type: "string",
-          },
-          completed: {
-            displayName: "Completed",
-            type: "boolean",
           },
         },
         methods: {
           "getDocs": {
             displayName: "Get Docs",
             type: "list",
-            outputs: ["id", "userId", "title", "completed"],
+            outputs: ["transientDocumentId"],
           },
         },
       },
@@ -57,13 +45,13 @@ ondescribe = async function ({ configuration }): Promise<void> {
 onexecute = async function ({
   objectName,
   methodName,
-  parameters,
   properties,
+  parameters,
   configuration,
   schema,
-}): Promise<void> {
+  }): Promise<void> {
   switch (objectName) {
-    case "todo":
+    case "getid":
       await onexecuteTodo(methodName, properties, parameters, configuration);
       break;
     default:
