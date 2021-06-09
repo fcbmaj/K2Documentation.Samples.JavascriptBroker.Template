@@ -87,15 +87,15 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     xhr.onreadystatechange = function () {
       try {
-        console.log('ready state ' + xhr.readyState);
+        console.log('1st ready state ' + xhr.readyState);
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200)
           throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
 
-        console.log('done')
+        console.log('2nd done')
 
         var obj = JSON.parse(xhr.responseText);
-        console.log('response text' + xhr.responseText)
+        console.log('3rd response text' + xhr.responseText)
         postResult({
           transientDocumentId: obj.id, 
         });
@@ -111,7 +111,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
 
     xhr.send(data);
-    console.log(JSON.stringify(data));
+    console.log("data being sent " + JSON.stringify(data));
   });
 }
 
