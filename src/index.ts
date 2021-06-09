@@ -108,8 +108,12 @@ function executeGetTransDocId(parameters: SingleRecord, properties: SingleRecord
         xhr.onreadystatechange = function () {
             try {
                 if (xhr.readyState !== 4) return;
-                if (xhr.status !== 200) throw new Error("Failed with status " + xhr.status);
-
+                if (xhr.status !== 200) {
+                  console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+                  throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+                }
+                
+                console.log('success ' + xhr.responseText)
                 var obj = JSON.parse(xhr.responseText);
                 postResult({
                     "transDocId": obj.transientDocumentId
