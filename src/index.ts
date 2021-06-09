@@ -69,15 +69,6 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
 
-    /*
-    var form = new FormData();
- 
-    // form.append("File-Name", "testTwo.docx"); //IMPORTANT
-    // form.append("File", "from service broker - sign this doc");
-    form.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
-    form.append('file', "from service broker - sign this doc");
-    */
-
     var data = new FormData();
     data.append("File", "sign this doc please");
     data.append("File-Name", "please_sign.docx");
