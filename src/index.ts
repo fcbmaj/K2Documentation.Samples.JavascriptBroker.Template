@@ -70,10 +70,11 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
 
+    /*
     console.log("Token and URL good");
  
     var form = new FormData();
-    /*
+ 
     // form.append("File-Name", "testTwo.docx"); //IMPORTANT
     // form.append("File", "from service broker - sign this doc");
     form.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
@@ -130,6 +131,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         reject(e);
       }
     };
+    console.log(xhr.responseText)
 
     xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -137,7 +139,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
 
     xhr.send(data);
-    
+    console.log(JSON.stringify(data));
   });
 }
 
