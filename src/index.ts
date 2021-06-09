@@ -18,7 +18,6 @@ metadata = {
   }
 };
 
-//raw file not updating
 ondescribe = async function ({ configuration }): Promise<void> {
   postSchema({
     objects: {
@@ -34,7 +33,7 @@ ondescribe = async function ({ configuration }): Promise<void> {
         methods: {
           "getDocs": {
             displayName: "Get Docs",
-            type: "list",
+            type: "read",
             outputs: ["transientDocumentId"],
           },
         },
@@ -80,10 +79,8 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     */
 
     var data = new FormData();
-    // data.append("File", "sign this doc please");
-    // data.append("File-Name", "please_sign.docx");
-    data.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
-    data.append('file', "from service broker - sign this doc");
+    data.append("File", "sign this doc please");
+    data.append("File-Name", "please_sign.docx");
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
@@ -107,25 +104,6 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         reject(e);
       }
     };
-
-    // xhr.onreadystatechange = function () {
-    //   try {
-    //     console.log('ready state', xhr.readyState);
-    //     if (xhr.readyState !== 4) return;
-    //     if (xhr.status !== 200)
-    //       throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
-
-    //     var obj = JSON.parse(xhr.responseText);
-    //     console.log('response text', xhr.responseText)
-    //     postResult({
-    //       transientDocumentId: obj.id, 
-    //     });
-    //     resolve();
-    //   } catch (e) {
-    //     reject(e);
-    //   }
-    // };
-    // console.log(xhr.responseText)
 
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
