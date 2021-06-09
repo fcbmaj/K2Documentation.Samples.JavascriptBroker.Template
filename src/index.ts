@@ -126,13 +126,6 @@ function executeGetTransDocId(parameters: SingleRecord, properties: SingleRecord
 
         }
 
-        // Display the values
-        var object = {};
-        form.forEach(function(value, key){
-            object[key] = value;
-        });
-        var json = JSON.stringify(object);
-
         xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
         xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
         xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
