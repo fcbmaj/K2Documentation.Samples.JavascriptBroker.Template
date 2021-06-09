@@ -87,7 +87,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         var obj = JSON.parse(xhr.responseText);
         console.log('3rd response text' + xhr.responseText)
         postResult({
-          transientDocumentId: obj.transientDocumentIdid, 
+          transientDocumentId: obj.transientDocumentId, 
         });
         resolve();
       } catch (e) {
