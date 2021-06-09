@@ -43,17 +43,6 @@ ondescribe = async function ({ configuration }): Promise<void> {
           },
         },
         methods: {
-          // "get": {
-          //   displayName: "Get TO DO",
-          //   type: "read",
-          //   inputs: ["id"],
-          //   outputs: ["id", "userId", "title", "completed"],
-          // },
-          // "getItems": {
-          //   displayName: "Get TO DOs",
-          //   type: "list",
-          //   outputs: ["id", "userId", "title", "completed"],
-          // },
           "getDocs": {
             displayName: "Get Docs",
             type: "list",
@@ -90,12 +79,6 @@ async function onexecuteTodo(
 
 ): Promise<void> {
   switch (methodName) {
-    case "get":
-      await onexecuteTodoGet(properties, configuration);
-      break;
-    case "getItems":
-      await onexecuteTodoGetAll(parameters, configuration);
-      break;
     case "getDocs":
       await onexecuteTransientDocGet(parameters, configuration);
       break;
@@ -103,70 +86,6 @@ async function onexecuteTodo(
       throw new Error("The method " + methodName + " is not supported.");
   }
 }
-
-// function onexecuteTodoGet(properties: SingleRecord, configuration: SingleRecord): Promise<void> {
-//   return new Promise<void>((resolve, reject) => {
-    
-//     var xhr = new XMLHttpRequest();
-//     var urlValue = configuration["ServiceURL"];
-    
-//     xhr.onreadystatechange = function () {
-//       try {
-//         if (xhr.readyState !== 4) return;
-//         if (xhr.status !== 200)
-//           throw new Error("Failed with status " + xhr.status);
-
-//         var obj = JSON.parse(xhr.responseText);
-//         postResult({
-//           id: obj.id,
-//           userId: obj.userId,
-//           title: obj.title,
-//           completed: obj.completed,
-//         });
-//         resolve();
-//       } catch (e) {
-//         reject(e);
-//       }
-//     };
-
-//     if (typeof properties["id"] !== "number")
-//       throw new Error('properties["id"] is not of type number');
-//     xhr.open("GET",urlValue + "/todos/" + encodeURIComponent(properties["id"]));
-//     xhr.setRequestHeader("test", "test value");
-//     xhr.send();
-//   });
-// }
-
-// function onexecuteTodoGetAll(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
-//   return new Promise<void>((resolve, reject) => {
-
-//     var xhr = new XMLHttpRequest();
-//     var urlValue = configuration["ServiceURL"];
- 
-//     xhr.onreadystatechange = function () {
-//       try {
-//         if (xhr.readyState !== 4) return;
-//         if (xhr.status !== 200)
-//           throw new Error("Failed with status " + xhr.status);
-
-//         var obj = JSON.parse(xhr.responseText);
-//         postResult(obj.map(x => {
-//           return {
-//           "id": x.id,
-//           "userId": x.userId,
-//           "title": x.title,
-//           "completed": x.completed
-//           }
-//         }));
-//         resolve();
-//       } catch (e) {
-//         reject(e);
-//       }
-//     };
-//     xhr.open("GET", urlValue + "/todos");
-//     xhr.send();
-//   });
-// }
 
 function onexecuteTransientDocGet(parameters: SingleRecord, configuration: SingleRecord): Promise<void> {
   return new Promise<void>((resolve, reject) => {
@@ -177,11 +96,6 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     console.log("1")
  
-    //---
-    // form.append("file", "from service broker - sign this doc");
-    // form.append("name", "TestTwo.docx");
-    //---
-
     var form = new FormData();
     form.append("File-Name", "testTwo.docx"); //IMPORTANT
     form.append("File", "from service broker - sign this doc");
@@ -203,16 +117,13 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     };
 
 
-    console.log("2")
+    console.log(urlValue)
     // test with nintex
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-    // xhr.setRequestHeader("Content-Type", "application/form-data");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-    ///----------------
 
-    ///----------------
     xhr.send(form);
     console.log("3")
   });
