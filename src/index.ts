@@ -118,11 +118,13 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
 
     xhr.onreadystatechange = function () {
       try {
+        console.log('ready state', xhr.readyState);
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200)
           throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
 
         var obj = JSON.parse(xhr.responseText);
+        console.log('response text', xhr.responseText)
         postResult({
           transientDocumentId: obj.id, 
         });
