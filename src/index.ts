@@ -80,8 +80,10 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     */
 
     var data = new FormData();
-    data.append("File", "sign this doc please");
-    data.append("File-Name", "please_sign.docx");
+    // data.append("File", "sign this doc please");
+    // data.append("File-Name", "please_sign.docx");
+    data.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
+    data.append('file', "from service broker - sign this doc");
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
