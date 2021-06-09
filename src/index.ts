@@ -117,7 +117,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     };
 
 
-    console.log(urlValue)
+    console.log(urlValue + "/transientDocuments")
     // test with nintex
     
     xhr.open("POST", urlValue + "/transientDocuments");
