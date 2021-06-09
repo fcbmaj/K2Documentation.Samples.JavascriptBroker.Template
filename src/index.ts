@@ -106,22 +106,23 @@ function executeGetTransDocId(parameters: SingleRecord, properties: SingleRecord
         form.append("File-Name", "please_sign.docx");
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
-            try {
-                if (xhr.readyState !== 4) return;
-                if (xhr.status !== 200) {
-                  console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-                  throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-                }
+            // try {
+            //     if (xhr.readyState !== 4) return;
+            //     if (xhr.status !== 200) {
+            //       console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+            //       throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+            //     }
                 
-                console.log('success ' + xhr.responseText)
-                var obj = JSON.parse(xhr.responseText);
-                postResult({
-                    "transDocId": obj.transientDocumentId
-                  });
-                resolve();
-            } catch (error) {
-                reject(error);
-            }
+            //     console.log('success ' + xhr.responseText)
+            //     var obj = JSON.parse(xhr.responseText);
+            //     postResult({
+            //         "transDocId": obj.transientDocumentId
+            //       });
+            //     resolve();
+            // } catch (error) {
+            //     reject(error);
+            // }
+            console.log(this.responseText);
 
         }
 
