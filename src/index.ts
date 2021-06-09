@@ -115,11 +115,21 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
 
-    // xhr.addEventListener("readystatechange", function() {
-    //   if(this.readyState === 4) {
-    //     console.log(this.responseText);
-    //   }
-    // });
+    xhr.onreadystatechange = function () {
+      try {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200)
+          throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
+
+        var obj = JSON.parse(xhr.responseText);
+        postResult({
+          transientDocumentId: obj.id, 
+        });
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    };
 
     xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
