@@ -75,11 +75,11 @@ function executeGetTransDocId(parameters, properties, configuration) {
     postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
   };
   // xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
+  xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-  xhr.send(form);
+  xhr.send();
 }
 
 
