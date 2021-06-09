@@ -43,30 +43,17 @@ ondescribe = async function ({ configuration }): Promise<void> {
   });
 };
 
-onexecute = async function ({
-  objectName,
-  methodName,
-  properties,
-  parameters,
-  configuration,
-  schema,
-  }): Promise<void> {
+onexecute = async function ({objectName, methodName, parameters, properties, configuration, schema}): Promise<void> {
   switch (objectName) {
     case "getid":
-      await onexecuteTodo(methodName, properties, parameters, configuration);
+      await onexecuteGetId(methodName, parameters, properties, configuration);
       break;
     default:
       throw new Error("The object " + objectName + " is not supported.");
   }
 };
 
-async function onexecuteTodo(
-  methodName: string,
-  properties: SingleRecord,
-  parameters: SingleRecord,
-  configuration: SingleRecord
-
-): Promise<void> {
+async function onexecuteGetId(methodName: string, parameters: SingleRecord, properties: SingleRecord, configuration: SingleRecord): Promise<void> {
   switch (methodName) {
     case "getDocs":
       await onexecuteTransientDocGet(parameters, configuration);
@@ -83,7 +70,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
 
-    console.log("1")
+    console.log(urlToken)
  
     var form = new FormData();
     form.append("File-Name", "testTwo.docx"); //IMPORTANT
