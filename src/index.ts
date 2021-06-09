@@ -67,20 +67,20 @@ function executeGetTransDocId(parameters, properties, configuration) {
   data.append('attributes', JSON.stringify({"File-Name": "please_sign.docx", "parent": {"id": "0"}})); //IMPORTANT
   data.append('attributes', JSON.stringify({"File": "sign this doc please"}));
   
+  console.log("1. data being sent " + JSON.stringify(data));
 
   xhr.onreadystatechange = function () {
-    console.log('1. ready state ' + xhr.readyState);
+    console.log('2. ready state ' + xhr.readyState);
     if (xhr.readyState !== 4) return;
     if (xhr.status !== 200) throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-    console.log('2. response text' + xhr.responseText)
+    console.log('3. response text' + xhr.responseText)
     postResult({ "transDocId" :"transientDocumentId"});
   };
-  xhr.open("POST", urlValue + "/transientDocuments", true);
+  xhr.open("POST", urlValue + "/transientDocuments");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(data);
-  console.log("3. data being sent " + JSON.stringify(data));
 }
 
 
