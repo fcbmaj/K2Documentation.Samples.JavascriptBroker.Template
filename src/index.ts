@@ -61,11 +61,11 @@ function executeGetTransDocId(parameters, properties, configuration) {
   var urlToken = configuration["AccessToken"];
   var xhr = new XMLHttpRequest();
 
-  var data = new FormData();
-  data.append("File", "sign this doc please");
-  data.append("File-Name", "please_sign.docx");
+  var form = new FormData();
+  form.append("File", "sign this doc please");
+  form.append("File-Name", "please_sign.docx");
   
-  console.log("1. data being sent " + data);
+  console.log("1. data being sent " + form);
 
   xhr.onreadystatechange = function () {
     console.log('2. ready state ' + xhr.readyState);
@@ -74,10 +74,12 @@ function executeGetTransDocId(parameters, properties, configuration) {
     console.log('3. response text' + xhr.responseText)
     postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
   };
-  xhr.open("POST", urlValue + "/transientDocuments");
+  // xhr.open("POST", urlValue + "/transientDocuments");
+  xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-  xhr.send(data);
+  xhr.send(form);
 }
 
 
