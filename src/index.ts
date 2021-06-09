@@ -17,7 +17,6 @@ metadata = {
   }
 };
 ondescribe = function () {
-  console.log("test");
   postSchema({
     objects: {
       "getid": {
@@ -25,7 +24,10 @@ ondescribe = function () {
         description: "Get Transaction ID",
         isActive: true,
         properties: {
-          "transDocId": {displayName: "transient Document Id", type: "string"},
+          "transDocId": {
+            displayName: "transient Document Id",
+            type: "string"
+          },
         },
         methods: {
           "getDocs": {
@@ -67,19 +69,27 @@ function executeGetTransDocId(parameters, properties, configuration) {
   var xhr = new XMLHttpRequest();
   // xhr.withCredentials = true;
   
-  // xhr.onreadystatechange = function () {
-  //   console.log('1. ready state ' + xhr.readyState);
-  //   if (xhr.readyState !== 4) return;
-  //   if (xhr.status !== 200) throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-  //   console.log('2. response text' + xhr.responseText)
-  //   postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
-  // };
   xhr.onreadystatechange = function () {
-    if(this.readyState === 4) {
-      console.log(this.responseText);
-      postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
+
+    if (xhr.readyState !== 4) {
+      return;
     }
-  };
+    if (xhr.readyState === 4) {
+      console.log('readystate == 4 ' + xhr.responseText)
+      var obj = JSON.parse(xhr.responseText);
+      postResult({
+        "transDocId" : obj.transientDocumentId
+      });
+    }
+    if (xhr.status !== 200)
+      throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+    };
+  // xhr.onreadystatechange = function () {
+  //   if(this.readyState === 4) {
+  //     console.log(this.responseText);
+  //     postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
+  //   }
+  // };
 
   // xhr.open("POST", urlValue + "/transientDocuments");
   // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
