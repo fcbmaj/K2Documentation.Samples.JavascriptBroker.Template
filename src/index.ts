@@ -70,7 +70,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     var urlValue = configuration["ServiceURL"];
     var urlToken = configuration["AccessToken"];
 
-    console.log(urlToken)
+    console.log("Token and URL good");
  
     var form = new FormData();
     form.append("File-Name", "testTwo.docx"); //IMPORTANT
@@ -93,15 +93,15 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     };
 
 
-    console.log(urlValue + "/transientDocuments")
+    console.log(urlValue + "/transientDocuments");
     // test with nintex
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
 
-    xhr.send(form);
-    console.log("3")
+    xhr.send();
+    console.log(form);
   });
 }
 
