@@ -80,7 +80,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
         console.log('1st ready state ' + xhr.readyState);
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200)
-          throw new Error("Failed with status " + xhr.status + " ** " + JSON.stringify(xhr.response) );
+          throw new Error("Failed with status " + xhr.status + "Details: " + xhr.responseText);
 
         console.log('2nd done')
 
