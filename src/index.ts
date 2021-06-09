@@ -101,7 +101,7 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
 
     xhr.send();
-    console.log(form);
+    console.log(JSON.stringify(form));
   });
 }
 
