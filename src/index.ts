@@ -73,8 +73,11 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     console.log("Token and URL good");
  
     var form = new FormData();
-    form.append("File-Name", "testTwo.docx"); //IMPORTANT
-    form.append("File", "from service broker - sign this doc");
+    /*
+    // form.append("File-Name", "testTwo.docx"); //IMPORTANT
+    // form.append("File", "from service broker - sign this doc");
+    form.append('attributes', JSON.stringify({"file-name": "testTwo.docx", "parent": {"id": "0"}})); //IMPORTANT
+    form.append('file', "from service broker - sign this doc");
 
     xhr.onreadystatechange = function () {
       try {
@@ -98,10 +101,33 @@ function onexecuteTransientDocGet(parameters: SingleRecord, configuration: Singl
     
     xhr.open("POST", urlValue + "/transientDocuments");
     xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
 
-    xhr.send();
+    xhr.send(form);
     console.log(JSON.stringify(form));
+    */
+
+    var data = new FormData();
+    data.append("File", "sign this doc please");
+    data.append("File-Name", "please_sign.docx");
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    // xhr.addEventListener("readystatechange", function() {
+    //   if(this.readyState === 4) {
+    //     console.log(this.responseText);
+    //   }
+    // });
+
+    xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
+    xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
+
+    xhr.send(data);
+    
   });
 }
 
