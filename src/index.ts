@@ -65,21 +65,24 @@ function executeGetTransDocId(parameters, properties, configuration) {
   form.append("File", "sign this doc please");
   form.append("File-Name", "please_sign.docx");
   
-  console.log("1. data being sent " + form);
-
+  // xhr.onreadystatechange = function () {
+  //   console.log('1. ready state ' + xhr.readyState);
+  //   if (xhr.readyState !== 4) return;
+  //   if (xhr.status !== 200) throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+  //   console.log('2. response text' + xhr.responseText)
+  //   postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
+  // };
   xhr.onreadystatechange = function () {
-    console.log('2. ready state ' + xhr.readyState);
-    if (xhr.readyState !== 4) return;
-    if (xhr.status !== 200) throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-    console.log('3. response text' + xhr.responseText)
-    postResult({ "transDocId" :"transientDocumentId" + JSON.stringify(xhr.response)});
+    if(this.readyState === 4) {
+      console.log(this.responseText);
+    }
   };
-  // xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6");
+
+  xhr.open("POST", urlValue + "/transientDocuments");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-  xhr.send();
+  xhr.send(form);
 }
 
 
