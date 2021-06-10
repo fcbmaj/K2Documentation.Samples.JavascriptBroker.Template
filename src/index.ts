@@ -52,7 +52,8 @@ function executeUploadFileMethod(parameters, properties) {
   var file1 = "Adobe Sign/TestTwo.docx";
 
   var form = new FormData();
-  form.append('attributes', JSON.stringify({"name": properties[file1].filename, "parent": {"id": "0"}})); //IMPORTANT
+  // form.append('attributes', JSON.stringify({"name": properties[file1].filename, "parent": {"id": "0"}})); //IMPORTANT
+  form.append("attributes", "{\n  \"name\": \"TestTwo.docx\",\n  \"parent\": {\n    \"id\": \"0\"\n  },\n  \"content_created_at\": \"2012-12-12T10:53:43-08:00\",\n  \"content_modified_at\": \"2012-12-12T10:53:43-08:00\"\n}");
   form.append('file', properties[file1].content);
 
       
