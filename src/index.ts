@@ -53,14 +53,14 @@ function executeUploadFileMethod(parameters, properties) {
 
   var form = new FormData();
   // form.append('attributes', JSON.stringify({"name": properties[file1].filename, "parent": {"id": "0"}})); //IMPORTANT
-  form.append("attributes", JSON.stringify({"name": properties[file1].filename, "parent": {"id": "0"},"content_created_at": "2012-12-12T10:53:43-08:00", "content_modified_at": "2012-12-12T10:53:43-08:00"}));
+  form.append("attributes", JSON.stringify({"name": "TestTwo.docx", "parent": {"id": "0"},"content_created_at": "2012-12-12T10:53:43-08:00", "content_modified_at": "2012-12-12T10:53:43-08:00"}));
   form.append('file', properties[file1].content);
 
       
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
-    if (xhr.status !== 201) throw new Error("Failed with status " + JSON.stringify(xhr.response));
+    if (xhr.status !== 201) throw new Error("Failed with status " + JSON.stringify(xhr.response) +". Details: " + xhr.responseText);
         
     postResult({"result" :"File uploaded successfully" + JSON.stringify(xhr.response)}); 
     
