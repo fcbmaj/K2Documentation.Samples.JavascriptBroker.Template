@@ -82,15 +82,16 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("filename: " + properties["file1"].filename);
 
   // get file content
-  form.append('file', properties["file1"].content);
-  console.log("content: " + properties["file1"].content);
+  form.append('file', JSON.stringify(properties["file1"].content));
+  console.log("content: " + JSON.stringify(properties["file1"].content));
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
-    if (xhr.status !== 200)
+    if (xhr.status !== 200) {
       console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
       throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+    }
 
     var obj = JSON.parse(xhr.responseText);
     console.log('3rd response text' + xhr.responseText)
