@@ -52,9 +52,9 @@ function executeUploadFileMethod(parameters, properties) {
 
   var form = new FormData();
   form.append('attributes', JSON.stringify({"name": properties["file1"].filename, "parent": {"id": "0"}})); //IMPORTANT
-  console.log(properties["file1"].filename)
+  console.log("filename: " + properties["file1"].filename)
   form.append('file', properties["file1"].content);
-  console.log(properties["file1"].content)
+  console.log("content: " + properties["file1"].content)
       
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
