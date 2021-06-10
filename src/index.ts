@@ -21,7 +21,7 @@ ondescribe = function () {
            displayName: "Upload File",
            description: "Upload File",
            type: "read",
-           //inputs: ["file1"],
+           inputs: ["file1"],
            outputs: ["result"]
           }
         }
@@ -49,12 +49,10 @@ function executeXHRTest(methodName, parameters, properties) {
 function executeUploadFileMethod(parameters, properties) {
     
   var oauthToken = "77NUAGA2JjHNIm3Jo8D3rE3BDDBdl4wI";
-  var file1 = "Adobe Sign/TestTwo.docx";
 
   var form = new FormData();
-  // form.append('attributes', JSON.stringify({"name": properties[file1].filename, "parent": {"id": "0"}})); //IMPORTANT
-  form.append("attributes", JSON.stringify({"name": "TestTwo.docx", "parent": {"id": "0"},"content_created_at": "2012-12-12T10:53:43-08:00", "content_modified_at": "2012-12-12T10:53:43-08:00"}));
-  form.append('file', properties[file1].content);
+  form.append('attributes', JSON.stringify({"name": properties["file1"].filename, "parent": {"id": "0"}})); //IMPORTANT
+  form.append('file', properties["file1"].content);
 
       
   var xhr = new XMLHttpRequest();
@@ -65,7 +63,7 @@ function executeUploadFileMethod(parameters, properties) {
     postResult({"result" :"File uploaded successfully" + JSON.stringify(xhr.response)}); 
     
   };
-  xhr.open("POST", 'https://upload.box.com/api/2.0/files/content', true);
+  xhr.open("POST", 'https://upload.box.com/api/2.0/files/content');
   xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
   xhr.send(form);    
 }
