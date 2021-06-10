@@ -18,7 +18,8 @@ metadata = {
   }
 };
 
-ondescribe = async function ({ configuration }): Promise<void> {
+ondescribe =  function () {
+  console.log('test');
   postSchema({
     objects: {
       getid: {
@@ -42,7 +43,7 @@ ondescribe = async function ({ configuration }): Promise<void> {
             description: "Upload File",
             type: "read",
             inputs: ["file1"],
-            outputs: ["result"]
+            outputs: ["transientDocumentId"]
            }
          }
        }
