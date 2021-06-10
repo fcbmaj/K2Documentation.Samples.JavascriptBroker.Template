@@ -1,73 +1,103 @@
 import "@k2oss/k2-broker-core";
+
 metadata = {
-  "systemName": "JsspITest_Multipart_File_Upload",
-  "displayName": "JavaScript Service Provider Multipart Form Data Execute File Upload Test",
-  "description": "This is for test purposes."
+  "systemName": "bazTestBroker",
+  "displayName": "Adobesign Broker",
+  "description": "Adobesign broker that accesses JSONPlaceholder.",
+  "configuration": {
+      "ServiceURL": {
+          "displayName" : "Adobesign URL",
+          "type" : "string",
+          "value" : "https://api.na2.adobesign.com/api/rest/v6"
+      },
+      "AccessToken":{
+        "displayName" : "Access Token",
+        "type": "string",
+        "value" : "3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL"
+      }
+  }
 };
-ondescribe = function () {
-  console.log('test');
+
+ondescribe = async function ({ configuration }): Promise<void> {
   postSchema({
     objects: {
-      "JsspITest_Test1": {
-        displayName: "JsspITest_Test1",
-        description: "JsspITest_Test1.description",
+      getid: {
+        displayName: "Get ID",
+        description: "Get Transaction ID",
         isActive: true,
-         properties: {
-           "file1": { displayName: "File1", description: "Input File Prop", type: "attachment" },
-           "result": { displayName: "Result", description: "Result", type: "string" }
+        properties: {
+          "file1": { 
+            displayName: "File1",
+            description: "Input File Prop",
+            type: "attachment"
+          },
+          "transientDocumentId": {
+            displayName: "transient Document Id",
+            type: "string",
+          },
         },
         methods: {
-         "UploadFile": {
-           displayName: "Upload File",
-           description: "Upload File",
-           type: "read",
-           inputs: ["file1"],
-           outputs: ["result"]
-          }
-        }
-      }
-    }
+          "UploadFile": {
+            displayName: "Upload File",
+            description: "Upload File",
+            type: "read",
+            inputs: ["file1"],
+            outputs: ["result"]
+           }
+         }
+       }
+     }
   });
 };
-onexecute = function ({objectName, methodName, parameters, properties}) {
+
+onexecute = function ({objectName, methodName, parameters, properties, configuration }) {
   switch (objectName) {
-    case "JsspITest_Test1":
-      executeXHRTest(methodName, parameters, properties);
+    case "getid":
+      executeXHRTest(methodName, parameters, properties, configuration);
       break;
     default:
-      throw new Error("the object " + objectName + " is not supported.");
+      throw new Error("The object " + objectName + " is not supported.");
   }
 };
-function executeXHRTest(methodName, parameters, properties) {
+
+function executeXHRTest(methodName, parameters, properties, configuration) {
   switch (methodName) {
     case "UploadFile":
-      executeUploadFileMethod(parameters, properties);
+      executeUploadFileMethod(parameters, properties, configuration);
       break;
-    default: throw new Error("The method " + methodName + " is not supported.");
+    default:
+      throw new Error("The method " + methodName + " is not supported.");
   }
 }
-function executeUploadFileMethod(parameters, properties) {
-    
-  var oauthToken = "fBo2XVWcExGpxxTtDNdktMwSkEWqLA0W";
+
+function executeUploadFileMethod(parameters, properties, configuration) {
+  
+  var urlValue = configuration["ServiceURL"];
+  var urlToken = configuration["AccessToken"];
 
   var form = new FormData();
-  //get file name
-  form.append('attributes', JSON.stringify({"name": properties["file1"].filename, "parent": {"id": "0"}})); //IMPORTANT
-  console.log("filename: " + properties["file1"].filename)
-  
-  // get file content
+  form.append('file-name', properties["file1"].filename);
   form.append('file', properties["file1"].content);
-  console.log("content: " + properties["file1"].content)
-      
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
+    console.log('1st ready state ' + xhr.readyState);
     if (xhr.readyState !== 4) return;
-    if (xhr.status !== 201) throw new Error("Failed with status " + JSON.stringify(xhr.response) +". Details: " + xhr.responseText);
-        
-    postResult({"result" :"File uploaded successfully" + JSON.stringify(xhr.response)}); 
-    
+    if (xhr.status !== 200)
+      throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+
+    var obj = JSON.parse(xhr.responseText);
+    console.log('3rd response text' + xhr.responseText)
+    postResult({
+      "transientDocumentId": obj.transientDocumentId, 
+    });
   };
-  xhr.open("POST", 'https://upload.box.com/api/2.0/files/content');
-  xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
-  xhr.send(form);    
+
+  xhr.open("POST", urlValue + "/transientDocuments");
+  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
+  xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
+  xhr.send(form);
 }
+
+
