@@ -64,3 +64,4 @@ typings/
 dist/
 src/index.ts.txt
 src/index copy.ts
+src/index with content.ts
