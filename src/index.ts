@@ -32,7 +32,7 @@ ondescribe =  function () {
             description: "Input File Prop",
             type: "attachment"
           },
-          "transientDocumentId": {
+          "transDocId": {
             displayName: "transient Document Id",
             type: "string",
           },
@@ -43,7 +43,7 @@ ondescribe =  function () {
             description: "Upload File",
             type: "read",
             inputs: ["file1"],
-            outputs: ["transientDocumentId"]
+            outputs: ["transDocId"]
            }
          }
        }
@@ -96,12 +96,12 @@ function executeUploadFileMethod(parameters, properties, configuration) {
     var obj = JSON.parse(xhr.responseText);
     console.log('3rd response text' + xhr.responseText)
     postResult({
-      "transientDocumentId": obj.transientDocumentId, 
+      "transDocId": obj.transientDocumentId, 
     });
   };
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(form);
