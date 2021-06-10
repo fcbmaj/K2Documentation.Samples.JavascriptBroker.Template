@@ -48,7 +48,7 @@ function executeXHRTest(methodName, parameters, properties) {
 }
 function executeUploadFileMethod(parameters, properties) {
     
-  var oauthToken = "o954JTWP4IFkdSEIQbK2uIhH558i58XB";
+  var oauthToken = "77NUAGA2JjHNIm3Jo8D3rE3BDDBdl4wI";
      
   var form = new FormData();
   form.append('attributes', JSON.stringify({"name": properties["file1"].filename, "parent": {"id": "0"}})); //IMPORTANT
