@@ -77,12 +77,16 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   var urlToken = configuration["AccessToken"];
 
   var form = new FormData();
+  // get file name
   form.append('file-name', properties["file1"].filename);
+  console.log("filename: " + properties["file1"].filename);
+
+  // get file content
   form.append('file', properties["file1"].content);
+  console.log("content: " + properties["file1"].content);
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
-    console.log('1st ready state ' + xhr.readyState);
     if (xhr.readyState !== 4) return;
     if (xhr.status !== 200)
       throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
@@ -95,7 +99,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   };
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(form);

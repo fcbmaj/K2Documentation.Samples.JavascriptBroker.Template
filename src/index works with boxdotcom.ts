@@ -12,7 +12,7 @@ ondescribe = function () {
         displayName: "JsspITest_Test1",
         description: "JsspITest_Test1.description",
         isActive: true,
-         properties: {
+        properties: {
            "file1": { displayName: "File1", description: "Input File Prop", type: "attachment" },
            "result": { displayName: "Result", description: "Result", type: "string" }
         },
