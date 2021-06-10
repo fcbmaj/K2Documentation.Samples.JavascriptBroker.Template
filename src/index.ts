@@ -82,8 +82,8 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("filename: " + properties["file1"].filename);
 
   // get file content
-  form.append('file', properties["file1"]);
-  console.log("content: " + properties["file1"]);
+  form.append('file', properties["file1"].content);
+  console.log("content: " + properties["file1"].content);
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -101,7 +101,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   };
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(form);
