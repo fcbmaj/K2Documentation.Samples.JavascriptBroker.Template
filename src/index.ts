@@ -82,8 +82,10 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("filename: " + properties["file1"].filename);
 
   // get file content
-  form.append("File", properties["file1"].content);
-  
+  form.append("File", properties["file1"].Content);
+  console.log("filename: " + properties["file1"].content);
+  console.log("filename: " + properties["file1"].Content);
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
