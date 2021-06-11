@@ -79,7 +79,9 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   var form = new FormData();
   // get file name
   form.append("File-Name", properties["file1"].filename);
-  console.log("filename: " + properties["file1"].filename);
+  console.log("Filename: " + properties["file1"].filename);
+  console.log("Type: " + properties["file1"].type);
+  console.log("Size: " + properties["file1"].size);
 
   // get file content
   form.append("File", properties["file1"]);
