@@ -1,5 +1,4 @@
 import "@k2oss/k2-broker-core";
-import { readFileSync } from 'fs';
 
 metadata = {
   "systemName": "bazTestBroker",
@@ -83,8 +82,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("Filename: " + properties["file1"].filename);
  
   // get file content
-  //form.append("File", properties["file1"]);
-  form.append("File", readFileSync(properties["file1"], 'utf-8'));
+  form.append("File", properties["file1"].content.tostring());
   console.log("content: " + properties["file1"].content);
   //console.log("Content: " + properties["file1"].Content);
 
