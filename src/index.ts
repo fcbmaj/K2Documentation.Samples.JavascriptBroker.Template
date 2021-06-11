@@ -102,8 +102,8 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   };
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.setRequestHeader("Content-Type", "multipart/form-data");
-  xhr.setRequestHeader("Content-Disposition", "form-data");
+  //xhr.setRequestHeader("Content-Type", "multipart/form-data");
+  //xhr.setRequestHeader("Content-Disposition", "form-data");
   //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
