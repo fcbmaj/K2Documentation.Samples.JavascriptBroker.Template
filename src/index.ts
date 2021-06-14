@@ -82,7 +82,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("Filename working: " + properties["file1"].filename);
  
   // get file content
-  form.append("File", "dGVzdA==");
+  form.append("File", properties["file1"].content.text());
   console.log("content: " + properties["file1"].content);
   console.log("response: " + properties["file1"].content.text());
   // console.log("Content: " + properties["file1"].Content);
