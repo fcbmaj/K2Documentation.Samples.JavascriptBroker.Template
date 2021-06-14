@@ -82,31 +82,27 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("Filename working: " + properties["file1"].filename);
  
   // get file content
-  form.append("File", properties["file1"].content);
-  console.log("content: " + properties["file1"].content);
-  //console.log("Content: " + properties["file1"].Content);
+  form.append("File", JSON.stringify(properties["file1"].content));
+  // console.log("content: " + properties["file1"].content);
+  // console.log("Content: " + properties["file1"].Content);
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
-  //   if (xhr.readyState !== 4) return;
-  //   if (xhr.status !== 200) {
-  //     console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
-  //     throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-  //   }
-    if(this.readyState === 4) {
-      console.log(this.responseText);
-    } 
-  //   var obj = JSON.parse(xhr.responseText);
-  //   console.log('3rd response text' + xhr.responseText)
-  //   postResult({
-  //     "transDocId": obj.transientDocumentId, 
-  //   });
+    if (xhr.readyState !== 4) return;
+    if (xhr.status !== 200) {
+      console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
+      throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+    }
+
+    var obj = JSON.parse(xhr.responseText);
+    console.log('3rd response text' + xhr.responseText)
+    postResult({
+      "transDocId": obj.transientDocumentId, 
+    });
   };
 
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  //xhr.setRequestHeader("Content-Type", "multipart/form-data");
-  //xhr.setRequestHeader("Content-Disposition", "form-data");
   //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
