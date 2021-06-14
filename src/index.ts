@@ -102,7 +102,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.setRequestHeader("Content-Type", "application/pdf");
+  xhr.setRequestHeader("Content-Type", "multipart/form-data");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(form);
