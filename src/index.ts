@@ -95,6 +95,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
     var obj = JSON.parse(xhr.responseText);
     console.log('3rd response text' + xhr.responseText)
+    console.log(obj.transientDocumentId)
     postResult({
       "transDocId": obj.transientDocumentId, 
     });
