@@ -82,11 +82,9 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   console.log("Filename working: " + properties["file1"].filename);
  
   // get file content
-  form.append("File", properties["file1"].content.text());
+  form.append("File", properties["file1"].content);
   console.log("content: " + properties["file1"].content);
-  console.log("response: " + properties["file1"].content.text());
-  // console.log("Content: " + properties["file1"].Content);
-
+  
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
@@ -104,7 +102,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
 
   xhr.open("POST", urlValue + "/transientDocuments");
-  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
   xhr.send(form);
