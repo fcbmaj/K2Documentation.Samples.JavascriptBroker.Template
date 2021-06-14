@@ -88,18 +88,21 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
-    if (xhr.readyState !== 4) return;
-    if (xhr.status !== 200) {
-      console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
-      throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-    }
-
-    var obj = JSON.parse(xhr.responseText);
-    console.log('3rd response text' + xhr.responseText)
-    postResult({
-      "transDocId": obj.transientDocumentId, 
-    });
+  //   if (xhr.readyState !== 4) return;
+  //   if (xhr.status !== 200) {
+  //     console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
+  //     throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+  //   }
+    if(this.readyState === 4) {
+      console.log(this.responseText);
+    } 
+  //   var obj = JSON.parse(xhr.responseText);
+  //   console.log('3rd response text' + xhr.responseText)
+  //   postResult({
+  //     "transDocId": obj.transientDocumentId, 
+  //   });
   };
+
 
   xhr.open("POST", urlValue + "/transientDocuments");
   //xhr.setRequestHeader("Content-Type", "multipart/form-data");
