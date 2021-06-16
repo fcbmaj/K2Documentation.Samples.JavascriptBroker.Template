@@ -116,7 +116,7 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
   // xhr.send(form);
   xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
   
