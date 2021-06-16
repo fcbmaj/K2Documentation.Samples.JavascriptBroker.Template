@@ -84,31 +84,42 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   // get file content
   // form.append("File", properties["file1"].content);
   form.append("File", "test signing");
-  console.log("content: " + properties["file1"].content);
+  // console.log("content: " + properties["file1"].content);
   
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState !== 4) return;
-    if (xhr.status !== 200) {
-      console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
-      throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
-    }
+  // xhr.onreadystatechange = function () {
+  //   if (xhr.readyState !== 4) return;
+  //   if (xhr.status !== 200) {
+  //     console.log("Failed with status " + xhr.status + ". Details: " + xhr.responseText); 
+  //     throw new Error("Failed with status " + xhr.status + ". Details: " + xhr.responseText);
+  //   }
 
-    var obj = JSON.parse(xhr.responseText);
-    console.log('3rd response text' + xhr.responseText)
-    console.log(obj.transientDocumentId)
-    postResult({
-      "transDocId": obj.transientDocumentId, 
-    });
+  //   var obj = JSON.parse(xhr.responseText);
+  //   console.log('3rd response text' + xhr.responseText)
+  //   console.log(obj.transientDocumentId)
+  //   postResult({
+  //     "transDocId": obj.transientDocumentId, 
+  //   });
+  // };
+  xhr.onreadystatechange = function() {
+    if(this.readyState === 4) {
+      console.log(this.responseText);
+    }
   };
 
+  // xhr.open("POST", urlValue + "/transientDocuments");
 
-  xhr.open("POST", urlValue + "/transientDocuments");
+  // xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
+  // xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
 
+  // xhr.send(form);
+  xhr.open("POST", "https://api.na2.adobesign.com/api/rest/v6/transientDocuments");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
-  xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
+  xhr.setRequestHeader("Authorization", "Bearer 3AAABLblqZhAsz7fkOci1ND7WDd20jYyUz2iHXweewyBfHX9jB46rtcAVKjL89-ty8o7dqbFLDVje0C5AF5vG_OC88kQNkjfL");
   
   xhr.send(form);
+
 }
 
 
