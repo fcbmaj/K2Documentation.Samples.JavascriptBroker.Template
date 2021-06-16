@@ -102,11 +102,11 @@ function executeUploadFileMethod(parameters, properties, configuration) {
   };
 
 
-  xhr.open("POST", urlValue + "/transientDocuments");
-  xhr.setRequestHeader("Content-Type", "application/octet-stream");
+  xhr.open("POST", urlValue + "/transientDocuments", true);
+  xhr.setRequestHeader("Content-Type", "multipart/form-data");
   xhr.setRequestHeader("x-api-user", "email:nick.williams@ca.fctg.travel");
   xhr.setRequestHeader("Authorization", "Bearer " + urlToken);
-  xhr.send(properties["file1"]);
+  xhr.send(form);
 }
 
 
