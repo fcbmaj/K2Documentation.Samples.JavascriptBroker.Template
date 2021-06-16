@@ -78,15 +78,12 @@ function executeUploadFileMethod(parameters, properties, configuration) {
 
   var form = new FormData();
   // get file name
-  form.append("File", properties["file1"], "Adobe Sign/TestTwo.docx");
-  form.append("File-Name", "Tagged_Document");
-  // form.append("File-Name", properties["file1"].filename);
-  // console.log("Filename working: " + properties["file1"].filename);
+  form.append("File-Name", properties["file1"].filename);
+  console.log("Filename working: " + properties["file1"].filename);
  
-  // // get file content
-  // // form.append("File", properties["file1"].content);
-  // form.append("File", "test signing");
-  // console.log("content: " + properties["file1"].content);
+  // get file content
+  form.append("File", properties["file1"].content);
+  console.log("content: " + properties["file1"].content);
   
   var xhr = new XMLHttpRequest();
   // xhr.onreadystatechange = function () {
